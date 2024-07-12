@@ -1,0 +1,37 @@
+<div class="filter">
+  <h2>Filters</h2>
+  <label>
+    Movie Name:
+    <select [(ngModel)]="filter.movie">
+      <option value="">All Movies</option>
+      <option *ngFor="let movie of movies" [value]="movie">{{ getFilmName(movie) }}</option>
+    </select>
+  </label>
+  <label>
+    Species:
+    <select [(ngModel)]="filter.species">
+      <option value="">All Species</option>
+      <option *ngFor="let specie of species" [value]="specie">{{ getSpecieName(specie) }}</option>
+    </select>
+  </label>
+  <label>
+    Vehicle:
+    <select [(ngModel)]="filter.vehicle">
+      <option value="">All Vehicles</option>
+      <option *ngFor="let vehicle of vehicles" [value]="vehicle">{{ getVehicleName(vehicle) }}</option>
+    </select>
+  </label>
+  <label>
+    Star Ships:
+    <select [(ngModel)]="filter.starship">
+      <option value="">All Starships</option>
+      <option *ngFor="let starship of starships" [value]="starship">{{ getStarshipName(starship) }}</option>
+    </select>
+  </label>
+  <label>
+    Birth Year:
+    <input type="number" [(ngModel)]="filter.birthYearRange.start" placeholder="From" />
+    <input type="number" [(ngModel)]="filter.birthYearRange.end" placeholder="To" />
+  </label>
+  <button (click)="applyFilter()">Search</button>
+</div>

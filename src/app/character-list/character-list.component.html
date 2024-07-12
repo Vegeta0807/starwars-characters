@@ -1,0 +1,23 @@
+<div>
+  <h2>Character List</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Sl No.</th>
+        <th>Character Name</th>
+        <th>Species</th>
+        <th>Birth Year</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let character of characters; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>
+          <a [routerLink]="['/characters', character.url.split('/').slice(-2, -1)[0]]">{{ character.name }}</a>
+        </td>
+        <td>{{ getSpeciesNumbers(character.species) }}</td>
+        <td>{{ character.birth_year }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
