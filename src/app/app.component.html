@@ -10,7 +10,9 @@
         [species]="species" 
         [vehicles]="vehicles" 
         [starships]="starships" 
-        (filterChanged)="applyFilter($event)">
+        (filterChanged)="applyFilter($event)"
+        [birthYears]="birthYears">
+
       </app-filter>
     </aside>
     <section class="character-list-section">

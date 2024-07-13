@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, of, forkJoin } from 'rxjs';
+import { map, mergeMap, toArray, switchMap, catchError, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +13,9 @@ export class SwapiService {
   private speciesMap: { [url: string]: string } = {};
   private vehiclesMap: { [url: string]: string } = {};
   private starshipsMap: { [url: string]: string } = {};
+
+  private vehiclesCache: any[] = [];
+  private starshipsCache: any[] = [];
 
   constructor(private http: HttpClient) {
     this.fetchDetails();
@@ -31,17 +34,59 @@ export class SwapiService {
       });
     });
 
-    this.http.get<any>(`${this.apiUrl}vehicles/`).subscribe(response => {
-      response.results.forEach((vehicle: any) => {
+    this.fetchAllVehicles().subscribe(vehicles => {
+      vehicles.forEach((vehicle: any) => {
         this.vehiclesMap[vehicle.url] = vehicle.name;
       });
     });
 
-    this.http.get<any>(`${this.apiUrl}starships/`).subscribe(response => {
-      response.results.forEach((starship: any) => {
+    this.fetchAllStarships().subscribe(starships => {
+      starships.forEach((starship: any) => {
         this.starshipsMap[starship.url] = starship.name;
       });
     });
+  }
+
+  private fetchAllVehicles(): Observable<any[]> {
+    if (this.vehiclesCache.length > 0) {
+      return of(this.vehiclesCache);
+    }
+
+    return this.http.get<any>(`${this.apiUrl}vehicles/`).pipe(
+      switchMap(response => {
+        const totalPages = Math.ceil(response.count / response.results.length);
+        const requests = [];
+
+        for (let i = 1; i <= totalPages; i++) {
+          requests.push(this.http.get<any>(`${this.apiUrl}vehicles/?page=${i}`));
+        }
+
+        return forkJoin(requests);
+      }),
+      map(responses => responses.flatMap(response => response.results)),
+      tap(results => this.vehiclesCache = results)
+    );
+  }
+
+  private fetchAllStarships(): Observable<any[]> {
+    if (this.starshipsCache.length > 0) {
+      return of(this.starshipsCache);
+    }
+
+    return this.http.get<any>(`${this.apiUrl}starships/`).pipe(
+      switchMap(response => {
+        const totalPages = Math.ceil(response.count / response.results.length);
+        const requests = [];
+
+        for (let i = 1; i <= totalPages; i++) {
+          requests.push(this.http.get<any>(`${this.apiUrl}starships/?page=${i}`));
+        }
+
+        return forkJoin(requests);
+      }),
+      map(responses => responses.flatMap(response => response.results)),
+      tap(results => this.starshipsCache = results)
+    );
   }
 
   getFilmName(url: string): string {

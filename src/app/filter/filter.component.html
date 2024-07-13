@@ -29,9 +29,18 @@
     </select>
   </label>
   <label>
-    Birth Year:
-    <input type="number" [(ngModel)]="filter.birthYearRange.start" placeholder="From" />
-    <input type="number" [(ngModel)]="filter.birthYearRange.end" placeholder="To" />
+    Birth Year From:
+    <select [(ngModel)]="filter.birthYearRange.start">
+      <option value="">Any</option>
+      <option *ngFor="let year of birthYears" [value]="year">{{ year }}</option>
+    </select>
+  </label>
+  <label>
+    Birth Year To:
+    <select [(ngModel)]="filter.birthYearRange.end">
+      <option value="">Any</option>
+      <option *ngFor="let year of birthYears" [value]="year">{{ year }}</option>
+    </select>
   </label>
   <button (click)="applyFilter()">Search</button>
 </div>

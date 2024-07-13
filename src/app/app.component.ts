@@ -16,6 +16,7 @@ export class AppComponent implements OnInit {
   starships: string[] = [];
   currentPage: number = 1;
   totalPages: number = 0;
+  birthYears: string[] = [];
 
   constructor(private swapiService: SwapiService) { }
 
@@ -37,18 +38,23 @@ export class AppComponent implements OnInit {
     const speciesSet = new Set<string>();
     const vehiclesSet = new Set<string>();
     const starshipsSet = new Set<string>();
+    const birthYearsSet = new Set<string>();
 
     characters.forEach(character => {
       character.films.forEach(film => moviesSet.add(film));
       character.species.forEach(specie => speciesSet.add(specie));
       character.vehicles.forEach(vehicle => vehiclesSet.add(vehicle));
       character.starships.forEach(starship => starshipsSet.add(starship));
+      birthYearsSet.add(character.birth_year);
     });
 
     this.movies = Array.from(moviesSet);
     this.species = Array.from(speciesSet);
     this.vehicles = Array.from(vehiclesSet);
     this.starships = Array.from(starshipsSet);
+    this.birthYears = Array.from(birthYearsSet).sort();
+
+    console.log('Extracted birth years:', this.birthYears);
   }
 
   applyFilter(filter: any): void {

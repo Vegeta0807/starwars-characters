@@ -11,6 +11,7 @@ export class FilterComponent {
   @Input() species: string[] = [];
   @Input() vehicles: string[] = [];
   @Input() starships: string[] = [];
+  @Input() birthYears: string[] = [];
 
   @Output() filterChanged = new EventEmitter<any>();
 
