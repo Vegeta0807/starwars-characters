@@ -11,6 +11,8 @@ import { Character } from '../models/character.model';
 export class CharacterListComponent implements OnInit {
   characters: Character[] = [];
   filteredCharacters: Character[] = [];
+  displayedColumns: string[] = ['name', 'species', 'birth' , 'details'];
+
   movies: string[] = [];
   species: string[] = [];
   vehicles: string[] = [];
@@ -22,7 +24,7 @@ export class CharacterListComponent implements OnInit {
   constructor(private swapiService: SwapiService, private router: Router) { }
 
   ngOnInit(): void {
-    this.loadCharacters();
+    this.loadCharacters();    
   }
 
   loadCharacters(page: number = 1): void {

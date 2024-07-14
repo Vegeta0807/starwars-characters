@@ -22,6 +22,7 @@ export class FilterComponent {
     starship: '',
     birthYearRange: { start: '', end: '' }
   };
+  isOpen = false;
 
   constructor(private swapiService: SwapiService) {}
 
@@ -43,5 +44,14 @@ export class FilterComponent {
 
   applyFilter() {
     this.filterChanged.emit(this.filter);
+  }
+
+  toggleSelect(selectElement: HTMLSelectElement): void {
+    this.isOpen = !this.isOpen;
+    if (this.isOpen) {
+      selectElement.parentElement?.classList.add('open');
+    } else {
+      selectElement.parentElement?.classList.remove('open');
+    }
   }
 }

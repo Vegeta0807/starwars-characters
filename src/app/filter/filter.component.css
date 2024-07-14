@@ -1,37 +1,78 @@
 .filter {
-    background-color: white;
-    padding: 20px;
-    border-radius: 4px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .filter h2 {
-    margin-top: 0;
-  }
-  
-  .filter label {
-    display: block;
-    margin-bottom: 15px;
-  }
-  
-  .filter select,
-  .filter input {
-    width: 100%;
-    padding: 8px;
-    margin-top: 5px;
-  }
-  
-  .filter button {
-    width: 100%;
-    padding: 10px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .filter button:hover {
-    background-color: #0056b3;
-  }
-  
+  background-color: white;
+  padding: 20px;
+  border-radius: 4px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.filter h2 {
+  margin-top: 0;
+}
+
+.filter label {
+  display: block;
+  margin-bottom: 15px;
+}
+
+.custom-select-wrapper {
+  position: relative;
+}
+
+.custom-select {
+  font-size: 17px;
+  font-weight: 600;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-color: lightgrey;
+  color: #004d40;
+  width: 100%;
+  height: 55px;
+  padding: 8px;
+  margin-top: 5px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.custom-select::-ms-expand {
+  display: none;
+}
+
+.custom-select:focus {
+  outline: none;
+  background-color: #004d40;
+  color: white;
+}
+
+.custom-select-wrapper::after {
+  content: '';
+  position: absolute;
+  top: calc(50% - 5px);
+  right: 10px;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid #004d40; /* Arrow color */
+  transition: transform 0.3s ease-out;
+}
+
+.custom-select-wrapper.open::after {
+  transform: rotate(180deg);
+}
+
+.filter button {
+  width: 100%;
+  height: 55px;
+  font-size: 17px;
+  font-weight: 600;
+  padding: 10px;
+  background-color: #004d40;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.filter button:hover {
+  background-color: #45a049;
+}

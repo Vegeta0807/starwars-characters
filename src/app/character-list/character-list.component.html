@@ -10,15 +10,45 @@
     </app-filter>
   </aside>
   <section class="character-list-section">
-    <div *ngFor="let character of characters" class="character-item">
-      <h3>{{ character.name }}</h3>
-      <p>Species: {{ getSpeciesNumbers(character.species) }}</p>
-      <button (click)="viewDetails(character)">View Details</button>
+    <h2 style="color: #004d40;">SEARCH RESULTS</h2>
+    <p>(By default, the list will have all data)</p>
+    <mat-table [dataSource]="filteredCharacters" matSort class="mat-elevation-z8">
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
+        <mat-cell *matCellDef="let character">{{ character.name }}</mat-cell>
+      </ng-container>
+
+      <!-- Species Column -->
+      <ng-container matColumnDef="species">
+        <mat-header-cell *matHeaderCellDef>Species</mat-header-cell>
+        <mat-cell *matCellDef="let character">{{ getSpeciesNumbers(character.species) }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="birth">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Birth Year</mat-header-cell>
+        <mat-cell *matCellDef="let character">{{ character.birth_year }}</mat-cell>
+      </ng-container>
+      <!-- Details Column -->
+      <ng-container matColumnDef="details">
+        <mat-header-cell *matHeaderCellDef>Details</mat-header-cell>
+        <mat-cell *matCellDef="let character">
+          <button mat-icon-button (click)="viewDetails(character)">
+            <mat-icon>visibility</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+
+
+    <div class="custom-pagination">
+      <button (click)="goToPage(currentPage - 1)" [disabled]="currentPage === 1" class="pagination-button">Previous</button>
+      <span class="pagination-info">Page {{ currentPage }} of {{ totalPages }}</span>
+      <button (click)="goToPage(currentPage + 1)" [disabled]="currentPage === totalPages" class="pagination-button">Next</button>
     </div>
-    <div class="pagination">
-      <button (click)="goToPage(currentPage - 1)" [disabled]="currentPage === 1">Previous</button>
-      <span>Page {{ currentPage }} of {{ totalPages }}</span>
-      <button (click)="goToPage(currentPage + 1)" [disabled]="currentPage === totalPages">Next</button>
-    </div>
+    
   </section>
 </div>

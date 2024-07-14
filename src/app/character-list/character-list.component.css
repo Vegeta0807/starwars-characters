@@ -58,4 +58,32 @@
     border-radius: 4px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   }
+  .custom-pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px; /* Adjust margin as needed */
+  }
+  
+  .pagination-button {
+    background-color: #004d40; /* Green background */
+    color: white; /* White text */
+    border: 1px solid #4CAF50; /* Green border */
+    padding: 10px 20px; /* Padding */
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin: 0 5px; /* Adjust margin between buttons */
+  }
+  
+  .pagination-button:hover:not([disabled]) {
+    background-color: #45a049; /* Darker green on hover */
+  }
+  
+  .pagination-info {
+    margin: 0 10px; /* Adjust margin around page info */
+    font-size: 16px; /* Adjust font size */
+  }
   

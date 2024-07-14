@@ -1,8 +1,90 @@
-h2 {
-    margin-top: 0;
-  }
-  
-  p {
-    margin: 5px 0;
-  }
-  
+.character-details-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.filter-section {
+  margin-top: 20px;
+  width: 25%;
+  margin-right: 20px;
+  background-color: white;
+    padding: 20px;
+    border-radius: 4px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.character-list-section {
+  margin-top: 20px;
+  width: 75%;
+  background-color: white;
+  padding: 20px;
+  border-radius: 4px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.details-box-left h2 {
+  margin-top: 0;
+  font-size: 1.5rem;
+}
+
+.details-box-left p {
+  margin: 10px 0;
+}
+
+.details-box-right p {
+  margin: 10px 0 5px;
+}
+
+.details-box-right ul {
+  list-style-type: none;
+  padding: 0;
+  margin-top: 0;
+}
+
+.details-box-right ul li {
+  margin-bottom: 5px;
+}
+
+button {
+  margin-top: 10px;
+  background-color: #004d40;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #45a049; 
+}
+
+.border-globe{
+  border-radius: 181px;
+}
+
+.detail-box {
+  background-color: lightgrey;
+  padding: 15px; /* Increased padding for spacing */
+  margin-top: 15px; /* Increased margin for spacing */
+  border-radius: 8px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.detail-box p {
+  margin-top: 0;
+}
+
+
+.detail-box ul {
+  margin-bottom: 10px;
+}
+
+.detail-box ul li {
+  margin-bottom: 5px;
+}
+
+.title-detail{
+  color: #004d40;
+}
