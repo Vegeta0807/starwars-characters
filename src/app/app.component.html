@@ -3,25 +3,5 @@
     <h1>Star Wars</h1>
     <span>The Swapi Project</span>
   </header>
-  <div class="main-content">
-    <aside class="filter-section">
-      <app-filter 
-        [movies]="movies" 
-        [species]="species" 
-        [vehicles]="vehicles" 
-        [starships]="starships" 
-        (filterChanged)="applyFilter($event)"
-        [birthYears]="birthYears">
-
-      </app-filter>
-    </aside>
-    <section class="character-list-section">
-      <app-character-list [characters]="filteredCharacters"></app-character-list>
-      <div class="pagination">
-        <button (click)="goToPage(currentPage - 1)" [disabled]="currentPage === 1">Previous</button>
-        <span>Page {{ currentPage }} of {{ totalPages }}</span>
-        <button (click)="goToPage(currentPage + 1)" [disabled]="currentPage === totalPages">Next</button>
-      </div>
-    </section>
-  </div>
+  <router-outlet></router-outlet>
 </div>

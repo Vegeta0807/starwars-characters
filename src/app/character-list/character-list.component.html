@@ -1,23 +1,24 @@
-<div>
-  <h2>Character List</h2>
-  <table>
-    <thead>
-      <tr>
-        <th>Sl No.</th>
-        <th>Character Name</th>
-        <th>Species</th>
-        <th>Birth Year</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let character of characters; let i = index">
-        <td>{{ i + 1 }}</td>
-        <td>
-          <a [routerLink]="['/characters', character.url.split('/').slice(-2, -1)[0]]">{{ character.name }}</a>
-        </td>
-        <td>{{ getSpeciesNumbers(character.species) }}</td>
-        <td>{{ character.birth_year }}</td>
-      </tr>
-    </tbody>
-  </table>
+<div class="main-content">
+  <aside class="filter-section">
+    <app-filter 
+      [movies]="movies" 
+      [species]="species" 
+      [vehicles]="vehicles" 
+      [starships]="starships" 
+      (filterChanged)="applyFilter($event)"
+      [birthYears]="birthYears">
+    </app-filter>
+  </aside>
+  <section class="character-list-section">
+    <div *ngFor="let character of characters" class="character-item">
+      <h3>{{ character.name }}</h3>
+      <p>Species: {{ getSpeciesNumbers(character.species) }}</p>
+      <button (click)="viewDetails(character)">View Details</button>
+    </div>
+    <div class="pagination">
+      <button (click)="goToPage(currentPage - 1)" [disabled]="currentPage === 1">Previous</button>
+      <span>Page {{ currentPage }} of {{ totalPages }}</span>
+      <button (click)="goToPage(currentPage + 1)" [disabled]="currentPage === totalPages">Next</button>
+    </div>
+  </section>
 </div>

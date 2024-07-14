@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of, forkJoin } from 'rxjs';
 import { map, mergeMap, toArray, switchMap, catchError, tap } from 'rxjs/operators';
+import { Character } from './models/character.model';
 
 @Injectable({
   providedIn: 'root'
@@ -107,5 +108,17 @@ export class SwapiService {
 
   getCharacters(page: number): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}people/?page=${page}`);
+  }
+
+  getCharacterById(id: string): Observable<Character> {
+    return this.http.get<Character>(`${this.apiUrl}people/${id}/`).pipe(
+      map((character: any) => ({
+        ...character,
+        films: character.films.map((filmUrl: string) => this.getFilmName(filmUrl)),
+        species: character.species.map((specieUrl: string) => this.getSpecieName(specieUrl)),
+        vehicles: character.vehicles.map((vehicleUrl: string) => this.getVehicleName(vehicleUrl)),
+        starships: character.starships.map((starshipUrl: string) => this.getStarshipName(starshipUrl))
+      }))
+    );
   }
 }

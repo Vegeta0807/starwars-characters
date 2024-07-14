@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { SwapiService } from './swapi.service';
 import { Character } from './models/character.model';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -17,11 +19,24 @@ export class AppComponent implements OnInit {
   currentPage: number = 1;
   totalPages: number = 0;
   birthYears: string[] = [];
+  isInDetailView: boolean= false;
 
-  constructor(private swapiService: SwapiService) { }
+  constructor(private swapiService: SwapiService, private route: ActivatedRoute, private router: Router) {
 
+  }
   ngOnInit(): void {
+
+    this.router.events
+    .pipe(filter((event): event is NavigationEnd => event instanceof NavigationEnd))
+    .subscribe((event: NavigationEnd) => {
+      console.log('Navigation event:', event); // Log the navigation event
+      this.isInDetailView = event.urlAfterRedirects.includes('/characters/');
+      console.log('isInDetailView:', this.isInDetailView); // Log the flag value
+    });
+
+
     this.loadCharacters();
+    
   }
 
   loadCharacters(page: number = 1): void {
